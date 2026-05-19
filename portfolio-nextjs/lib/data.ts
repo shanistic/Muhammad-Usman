@@ -1,79 +1,79 @@
 export const automationSystems = [
   {
-    icon: "📝",
+    category: "Content",
     title: "Automated Blog Posting",
     description:
-      "Content automatically publishes to 50+ websites with proper formatting, schema markup, and scheduling—no manual WordPress work.",
-    impact: "Saved 20 hours/week",
+      "Content publishes to 50+ websites with formatting, schema markup, and scheduling—no manual WordPress work.",
+    impact: "20 hours/week saved",
   },
   {
-    icon: "📊",
+    category: "Reporting",
     title: "Automated Reporting",
     description:
-      "Client reports generate automatically from GSC and GA4 data. Real-time dashboards replace monthly manual work.",
-    impact: "Saved 15 hours/week",
+      "Client reports pull from GSC and GA4 automatically. Dashboards replace the monthly manual export cycle.",
+    impact: "15 hours/week saved",
   },
   {
-    icon: "📍",
+    category: "SEO",
     title: "Citations Tracker",
     description:
-      "Monitors citations and backlinks for 70+ businesses with automated alerts when issues are detected.",
+      "Monitors citations and backlinks across 70+ businesses with alerts when listings drift or links break.",
     impact: "24/7 monitoring",
   },
   {
-    icon: "🏢",
+    category: "Local",
     title: "GBP Automation",
     description:
-      "Google Business Profile posts sync automatically across client accounts with scheduled publishing and performance tracking.",
-    impact: "Saved 8 hours/week",
+      "Google Business Profile posts sync across accounts with scheduled publishing and performance tracking.",
+    impact: "8 hours/week saved",
   },
   {
-    icon: "⚡",
+    category: "Performance",
     title: "Performance Monitoring",
     description:
-      "Website performance tracked via PageSpeed Insights with instant alerts when client sites underperform.",
+      "PageSpeed and Core Web Vitals tracked per site with alerts when a client property drops below threshold.",
     impact: "Proactive alerts",
   },
   {
-    icon: "📱",
+    category: "Social",
     title: "Social Content Generation",
     description:
-      "Social media content generated and scheduled automatically across platforms with brand-consistent messaging.",
-    impact: "Scaled content 10x",
-  },
-  {
-    icon: "🎯",
-    title: "Client Onboarding",
-    description:
-      "New client setup automated from intake forms to account access, reducing onboarding time from 3+ hours to 15 minutes.",
-    impact: "90% time reduction",
-  },
-  {
-    icon: "👥",
-    title: "Employee Onboarding",
-    description:
-      "New team member onboarding automated with account setup, documentation delivery, and training schedules.",
-    impact: "Consistent process",
-  },
-  {
-    icon: "🔗",
-    title: "Schema Generation",
-    description:
-      "Technical SEO schema markup automatically generated and implemented for all blog posts and pages.",
-    impact: "100% coverage",
-  },
-  {
-    icon: "🎬",
-    title: "Video Generation",
-    description:
-      "Faceless videos automatically created for content campaigns with text-to-speech and visual templates.",
+      "Posts drafted and scheduled across platforms with brand voice rules applied before anything goes live.",
     impact: "10x content output",
   },
   {
-    icon: "📧",
+    category: "Operations",
+    title: "Client Onboarding",
+    description:
+      "Intake forms trigger account setup, access provisioning, and kickoff tasks—onboarding cut from 3+ hours to 15 minutes.",
+    impact: "90% time reduction",
+  },
+  {
+    category: "Team",
+    title: "Employee Onboarding",
+    description:
+      "New hire flows cover accounts, documentation, and training schedules without chasing people across Slack.",
+    impact: "Consistent handoffs",
+  },
+  {
+    category: "Technical",
+    title: "Schema Generation",
+    description:
+      "Structured data generated and deployed for posts and pages so technical SEO stays current at scale.",
+    impact: "100% coverage",
+  },
+  {
+    category: "Media",
+    title: "Video Generation",
+    description:
+      "Faceless video assets produced from templates and scripts for campaigns that need volume, not one-offs.",
+    impact: "10x production speed",
+  },
+  {
+    category: "Sales",
     title: "Lead Generation",
     description:
-      "Lead capture, scoring, and email campaign automation with CRM integration and follow-up sequences.",
+      "Capture, scoring, and follow-up sequences tied to your CRM so leads do not sit in a spreadsheet.",
     impact: "3x conversion rate",
   },
 ];
