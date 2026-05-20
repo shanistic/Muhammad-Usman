@@ -106,7 +106,7 @@ export default function Hero() {
               className="rounded-2xl border-2 border-secondary bg-white p-8 shadow-xl"
             >
               <h3 className="mb-6 text-xl font-bold text-primary">
-                20 Production Systems Built
+                20+ Production Systems Built
               </h3>
               <ul className="space-y-4">
                 {heroSystems.map((system) => (
