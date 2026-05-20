@@ -96,14 +96,33 @@ export default function Hero() {
           </div>
 
           <FadeIn delay={0.3} direction="left" className="lg:col-span-2 lg:mt-0">
-            {/* Mobile-only animation shown above the card */}
-            <div className="mb-6 block lg:hidden">
-              <CodeSnippet className="pointer-events-none relative mx-auto w-full max-w-[400px] select-none opacity-70" />
+            {/* Mobile: animation sits above card, card overlaps bottom 40% of animation */}
+            <div className="relative block lg:hidden">
+              <CodeSnippet className="pointer-events-none relative w-full select-none opacity-75" />
+              <motion.div
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="relative z-10 -mt-28 mx-2 rounded-2xl border-2 border-secondary bg-white p-8 shadow-xl"
+              >
+                <h3 className="mb-6 text-xl font-bold text-primary">
+                  20+ Production Systems Built
+                </h3>
+                <ul className="space-y-4">
+                  {heroSystems.map((system) => (
+                    <li key={system} className="flex items-start gap-3">
+                      <Check className="mt-0.5 h-5 w-5 shrink-0 text-success" />
+                      <span className="text-sm text-dark-medium">{system}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
             </div>
+
+            {/* Desktop: just the floating card, animation is absolutely positioned via CodeSnippet */}
             <motion.div
               animate={{ y: [0, -12, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="rounded-2xl border-2 border-secondary bg-white p-8 shadow-xl"
+              className="hidden lg:block rounded-2xl border-2 border-secondary bg-white p-8 shadow-xl"
             >
               <h3 className="mb-6 text-xl font-bold text-primary">
                 20+ Production Systems Built
