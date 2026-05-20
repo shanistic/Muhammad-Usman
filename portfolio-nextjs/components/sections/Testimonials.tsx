@@ -30,7 +30,7 @@ export default function Testimonials() {
           }
         `}</style>
 
-        <div className="no-scrollbar flex w-full gap-6 overflow-x-auto pb-8 snap-x snap-mandatory md:grid md:grid-cols-2 md:overflow-visible md:pb-0 md:gap-8 lg:grid-cols-3">
+        <div className="no-scrollbar flex w-full gap-6 overflow-x-auto pb-8 snap-x snap-mandatory md:grid md:grid-cols-2 md:overflow-visible md:pb-0 md:gap-8 lg:grid-cols-3" style={{ display: "none" }}>
           {testimonials.map((testimonial, index) => (
             <FadeIn
               key={testimonial.company}
