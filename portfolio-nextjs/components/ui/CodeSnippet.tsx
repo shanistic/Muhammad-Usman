@@ -1,7 +1,7 @@
-export default function CodeSnippet() {
+export default function CodeSnippet({ className }: { className?: string }) {
   return (
     <div
-      className="pointer-events-none absolute left-[65%] top-[13%] -translate-x-1/2 select-none w-[680px] max-w-[95vw] opacity-80"
+      className={className ?? "pointer-events-none absolute left-[65%] top-[13%] -translate-x-1/2 select-none w-[680px] max-w-[95vw] opacity-80"}
     >
       <svg width="100%" viewBox="0 0 680 500" role="img">
         <title>Automation workflow tree</title>

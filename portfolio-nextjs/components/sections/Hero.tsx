@@ -17,7 +17,9 @@ export default function Hero() {
       className="relative min-h-screen overflow-hidden bg-gradient-to-b from-white to-secondary pt-12 md:pt-16"
     >
       <GridPattern />
-      <CodeSnippet />
+      <div className="hidden lg:block">
+        <CodeSnippet />
+      </div>
 
       <div className="pointer-events-none absolute -right-20 top-40 h-64 w-64 rounded-full bg-accent/10 blur-3xl animate-float" />
       <div className="pointer-events-none absolute bottom-20 left-10 h-40 w-40 rotate-45 border border-accent/20" />
@@ -94,13 +96,17 @@ export default function Hero() {
           </div>
 
           <FadeIn delay={0.3} direction="left" className="lg:col-span-2 lg:mt-0">
+            {/* Mobile-only animation shown above the card */}
+            <div className="mb-6 block lg:hidden">
+              <CodeSnippet className="pointer-events-none relative mx-auto w-full max-w-[400px] select-none opacity-70" />
+            </div>
             <motion.div
               animate={{ y: [0, -12, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="rounded-2xl border-2 border-secondary bg-white p-8 shadow-xl"
             >
               <h3 className="mb-6 text-xl font-bold text-primary">
-                11 Production Systems Built
+                20 Production Systems Built
               </h3>
               <ul className="space-y-4">
                 {heroSystems.map((system) => (
