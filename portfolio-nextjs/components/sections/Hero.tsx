@@ -14,7 +14,7 @@ export default function Hero() {
   return (
     <section
       id="about"
-      className="relative min-h-screen overflow-hidden bg-gradient-to-b from-white to-secondary pt-24"
+      className="relative min-h-screen overflow-hidden bg-gradient-to-b from-white to-secondary pt-12 md:pt-16"
     >
       <GridPattern />
       <CodeSnippet />
@@ -22,7 +22,7 @@ export default function Hero() {
       <div className="pointer-events-none absolute -right-20 top-40 h-64 w-64 rounded-full bg-accent/10 blur-3xl animate-float" />
       <div className="pointer-events-none absolute bottom-20 left-10 h-40 w-40 rotate-45 border border-accent/20" />
 
-      <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
+      <div className="relative mx-auto max-w-7xl px-6 pt-8 pb-16 lg:px-8 lg:pt-12 lg:pb-24">
         <div className="grid items-center gap-12 lg:grid-cols-5 lg:gap-16">
           <div className="lg:col-span-3">
             <FadeIn delay={0}>
@@ -93,7 +93,7 @@ export default function Hero() {
             </FadeIn>
           </div>
 
-          <FadeIn delay={0.3} direction="left" className="lg:col-span-2">
+          <FadeIn delay={0.3} direction="left" className="lg:col-span-2 lg:mt-0">
             <motion.div
               animate={{ y: [0, -12, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}

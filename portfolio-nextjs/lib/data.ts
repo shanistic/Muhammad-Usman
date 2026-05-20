@@ -103,6 +103,30 @@ export const testimonials = [
     company: "BizScale",
     avatar: "BS",
   },
+  {
+    quote:
+      "The client onboarding pipeline Muhammad built has completely streamlined our agency. We slashed onboarding times from hours to just minutes, delivering an immediate premium experience for our partners.",
+    author: "Agentic World Leadership",
+    position: "Operations Director",
+    company: "Agentic World",
+    avatar: "AW",
+  },
+  {
+    quote:
+      "Our content syndication is finally automated. Posting to dozens of client websites now happens instantly with perfect formatting and SEO checks. Muhammad's systems are absolute gold.",
+    author: "AstraFuse Team",
+    position: "Founder",
+    company: "AstraFuse",
+    avatar: "EF",
+  },
+  {
+    quote:
+      "The custom dashboards and live reporting setups built by Muhammad saved us countless hours of manual data compiling. Our reporting is now instant, accurate, and completely automated.",
+    author: "Muaz Mazhary",
+    position: "Operations Partner",
+    company: "Muaz Mazhary",
+    avatar: "MM",
+  },
 ];
 
 export const stats = [
@@ -147,11 +171,6 @@ export const socialLinks = [
     name: "LinkedIn",
     href: "https://linkedin.com/in/muhammad-usman-940b2a274",
     icon: "linkedin" as const,
-  },
-  {
-    name: "GitHub",
-    href: "https://github.com",
-    icon: "github" as const,
   },
   {
     name: "Email",

@@ -20,9 +20,23 @@ export default function Testimonials() {
           </p>
         </FadeIn>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <style>{`
+          .no-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+          .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}</style>
+
+        <div className="no-scrollbar flex w-full gap-6 overflow-x-auto pb-8 snap-x snap-mandatory md:grid md:grid-cols-2 md:overflow-visible md:pb-0 md:gap-8 lg:grid-cols-3">
           {testimonials.map((testimonial, index) => (
-            <FadeIn key={testimonial.company} delay={index * 0.1}>
+            <FadeIn
+              key={testimonial.company}
+              delay={index * 0.1}
+              className="w-[85vw] max-w-[360px] shrink-0 snap-center md:w-auto md:max-w-none md:shrink md:snap-align-none"
+            >
               <article className="group flex h-full flex-col rounded-[20px] border-2 border-transparent bg-secondary p-10 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-xl">
                 <span
                   className="mb-4 text-5xl font-serif text-accent/30"

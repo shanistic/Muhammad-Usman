@@ -9,6 +9,7 @@ import {
   Mail,
   MapPin,
   Share2,
+  Sparkles,
   UserPlus,
   Users,
   Video,
@@ -16,6 +17,7 @@ import {
 } from "lucide-react";
 import { automationSystems } from "@/lib/data";
 import FadeIn from "@/components/animations/FadeIn";
+import { smoothScroll } from "@/lib/utils";
 
 const categoryIcons: Record<string, LucideIcon> = {
   Content: FileText,
@@ -91,6 +93,41 @@ export default function AutomationSystemsGrid() {
             </FadeIn>
           );
         })}
+
+        <FadeIn delay={automationSystems.length * 0.04}>
+          <article className="group relative flex h-full flex-col rounded-xl border border-dashed border-accent/40 bg-accent/[0.02] p-6 transition-all duration-300 hover:border-accent/80 hover:bg-accent/[0.05] hover:shadow-[0_12px_40px_-12px_rgba(39,105,121,0.12)] lg:p-7">
+            <div className="mb-5 flex items-start justify-between gap-4">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-accent/20 bg-white/50 text-accent transition-colors duration-300 group-hover:bg-accent group-hover:text-white">
+                <Sparkles className="h-5 w-5" strokeWidth={1.75} />
+              </div>
+              <span className="font-mono text-xs font-medium tracking-wider text-accent/60">
+                12+
+              </span>
+            </div>
+
+            <span className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-accent">
+              Custom Automations
+            </span>
+
+            <h3 className="mb-2.5 text-lg font-bold leading-snug text-primary">
+              And many more...
+            </h3>
+
+            <p className="mb-5 flex-1 text-sm leading-relaxed text-dark-medium">
+              We design and construct bespoke automated workflows tailored directly to your agency's tech stack, APIs, and client needs.
+            </p>
+
+            <div className="border-t border-accent/20 pt-4">
+              <button
+                onClick={() => smoothScroll("booking")}
+                className="text-xs font-mono font-semibold text-accent hover:underline flex items-center gap-1.5 cursor-pointer"
+              >
+                <span>Automate Your Agency</span>
+                <span>→</span>
+              </button>
+            </div>
+          </article>
+        </FadeIn>
       </div>
     </>
   );

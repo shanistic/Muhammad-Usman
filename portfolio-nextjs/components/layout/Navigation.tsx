@@ -51,17 +51,20 @@ export default function Navigation() {
         className={cn(
           "fixed top-0 right-0 left-0 z-50 border-b transition-all duration-300",
           scrolled
-            ? "border-secondary bg-white/95 shadow-md backdrop-blur-md"
-            : "border-transparent bg-white/80 backdrop-blur-sm"
+            ? "border-secondary/60 bg-white/70 shadow-sm backdrop-blur-md"
+            : "border-transparent bg-white/40 backdrop-blur-md"
         )}
       >
         <nav
-          className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8"
+          className={cn(
+            "mx-auto flex max-w-7xl items-center justify-between px-6 transition-all duration-300 lg:px-8",
+            scrolled ? "py-3" : "py-4"
+          )}
           aria-label="Main navigation"
         >
           <button
             onClick={() => smoothScroll("about")}
-            className="text-lg font-bold text-primary transition-colors hover:text-accent"
+            className="text-lg font-bold text-primary transition-colors hover:text-accent cursor-pointer"
           >
             Muhammad Usman
           </button>
@@ -75,7 +78,7 @@ export default function Navigation() {
                   <button
                     onClick={() => handleNavClick(link.href)}
                     className={cn(
-                      "text-sm font-medium transition-colors hover:text-accent",
+                      "text-sm font-medium transition-colors hover:text-accent cursor-pointer",
                       activeSection === sectionId
                         ? "text-accent"
                         : "text-dark-medium"
@@ -98,7 +101,7 @@ export default function Navigation() {
           </div>
 
           <button
-            className="rounded-lg p-2 text-primary md:hidden"
+            className="rounded-lg p-2 text-primary md:hidden cursor-pointer"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
           >
@@ -131,7 +134,7 @@ export default function Navigation() {
                 <button
                   onClick={() => setMobileOpen(false)}
                   aria-label="Close menu"
-                  className="rounded-lg p-2 text-primary"
+                  className="rounded-lg p-2 text-primary cursor-pointer"
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -141,7 +144,7 @@ export default function Navigation() {
                   <li key={link.href}>
                     <button
                       onClick={() => handleNavClick(link.href)}
-                      className="text-lg font-medium text-dark hover:text-accent"
+                      className="text-lg font-medium text-dark hover:text-accent cursor-pointer"
                     >
                       {link.label}
                     </button>

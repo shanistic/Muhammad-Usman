@@ -1,3 +1,4 @@
+@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css');
 @import "tailwindcss";
 
 :root {
@@ -208,7 +209,7 @@
     transform: translate3d(0, -50%, 0);
   }
   100% {
-    transform: translate3d(calc(var(--pipeline-width, 300px) - 2rem), -50%, 0);
+    transform: translate3d(var(--pipeline-width, 300px), -50%, 0);
   }
 }
 
@@ -257,6 +258,7 @@
 }
 
 .pipeline-flow-dot {
+  left: -1rem;
   box-shadow: 0 0 10px rgba(46, 125, 143, 0.65);
 }
 
@@ -265,6 +267,7 @@
 }
 
 .pipeline-icon {
+  background-color: #132731;
   transition:
     transform 0.25s ease,
     border-color 0.25s ease,
@@ -274,7 +277,7 @@
 .pipeline-step:hover .pipeline-icon {
   transform: translate3d(0, -2px, 0);
   border-color: rgba(46, 125, 143, 0.4);
-  background-color: rgba(46, 125, 143, 0.1);
+  background-color: #173845;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -314,4 +317,76 @@
   width: 100% !important;
   overflow: hidden !important;
   border: 0;
+}
+
+@keyframes code-shimmer {
+  0% {
+    background-position: -200% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+.code-shimmer-text {
+  background: linear-gradient(
+    135deg,
+    #163d48 25%,
+    #2e7d8f 50%,
+    #163d48 75%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: code-shimmer 8s linear infinite;
+}
+
+/* Workflow Tree Animations */
+@media (prefers-reduced-motion: no-preference) {
+  .flow-dot {
+    animation: travel linear infinite;
+  }
+  .nd {
+    animation: pop-in cubic-bezier(.34, 1.56, .64, 1) both;
+  }
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      transform: scale(0);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes travel {
+    0% {
+      offset-distance: 0%;
+      opacity: 0;
+    }
+    8% {
+      opacity: 1;
+    }
+    92% {
+      opacity: 1;
+    }
+    100% {
+      offset-distance: 100%;
+      opacity: 0;
+    }
+  }
+  @keyframes breathe {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.06);
+    }
+  }
+  .node-ring {
+    animation: breathe 3s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 }

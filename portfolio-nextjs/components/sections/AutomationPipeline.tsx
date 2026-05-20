@@ -10,7 +10,6 @@ import {
 } from "react";
 import { useInView } from "framer-motion";
 import {
-  ArrowRight,
   BarChart3,
   Cog,
   Rocket,
@@ -72,9 +71,11 @@ export default function AutomationPipeline() {
     const firstRect = firstIcon.getBoundingClientRect();
     const lastRect = lastIcon.getBoundingClientRect();
 
-    const left = firstRect.right - trackRect.left;
-    const width = lastRect.left - trackRect.left - left;
-    const top = firstRect.top + firstRect.height / 2 - trackRect.top;
+    const left = firstRect.left + firstRect.width / 2 - trackRect.left;
+    const width = lastRect.left + lastRect.width / 2 - firstRect.left - firstRect.width / 2;
+    // Statically use 28px (half of the 56px / h-14 icon height) for top alignment.
+    // This prevents measuring the icon while it is shifted down by 14px during the entry animation.
+    const top = 28;
 
     if (width <= 0) return;
 
@@ -96,10 +97,8 @@ export default function AutomationPipeline() {
 
     updateLinePosition();
 
-    let resizeTimer: ReturnType<typeof setTimeout>;
     const onResize = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(updateLinePosition, 150);
+      updateLinePosition();
     };
 
     const track = trackRef.current;
@@ -112,7 +111,6 @@ export default function AutomationPipeline() {
     return () => {
       resizeObserver.disconnect();
       window.removeEventListener("resize", onResize);
-      clearTimeout(resizeTimer);
     };
   }, [isInView, updateLinePosition]);
 
@@ -144,7 +142,7 @@ export default function AutomationPipeline() {
       ref={containerRef}
       className={`pipeline-container relative overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-primary via-primary-700 to-accent p-px shadow-2xl shadow-primary/20 ${isInView ? "pipeline-visible" : ""}`}
     >
-      <div className="relative overflow-hidden rounded-[23px] bg-[#0a1f27] px-6 py-10 sm:px-10 sm:py-12 lg:px-14">
+      <div className="relative overflow-hidden rounded-[23px] bg-[#0a1f27] px-6 pt-6 pb-10 sm:px-10 sm:pt-8 sm:pb-12 lg:px-14">
         <div
           className="pipeline-glow pipeline-glow-accent pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-accent/15 blur-3xl"
           aria-hidden
@@ -205,7 +203,7 @@ export default function AutomationPipeline() {
                           ? lastIconRef
                           : undefined
                     }
-                    className="pipeline-icon relative z-10 mx-auto mb-4 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/5 shadow-lg lg:mx-0"
+                    className="pipeline-icon relative z-10 mx-auto mb-4 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/10 shadow-lg lg:mx-0"
                   >
                     <Icon className="relative h-6 w-6 text-accent" strokeWidth={1.75} />
                     <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-success text-[10px] font-bold text-white">
@@ -225,12 +223,7 @@ export default function AutomationPipeline() {
                     </span>
                   </div>
 
-                  {index < pipelineSteps.length - 1 && (
-                    <ArrowRight
-                      className="absolute -right-3 top-5 hidden h-5 w-5 text-accent/50 lg:block xl:-right-4"
-                      aria-hidden
-                    />
-                  )}
+
                 </li>
               );
             })}
