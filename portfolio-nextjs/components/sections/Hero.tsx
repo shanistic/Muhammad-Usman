@@ -82,7 +82,7 @@ export default function Hero() {
             <FadeIn delay={0.5}>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Button size="lg" onClick={() => smoothScroll("booking")}>
-                  Book Free Audit
+                  Book Free Audit Call
                   <ArrowRight className="h-5 w-5" />
                 </Button>
                 <Link href="/free-operations-audit">
@@ -91,7 +91,7 @@ export default function Hero() {
                     size="lg"
                     type="button"
                   >
-                    See How It Works
+                    Take Free Operations Audit
                   </Button>
                 </Link>
               </div>

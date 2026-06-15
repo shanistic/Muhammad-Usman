@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { Mail } from "lucide-react";
+import Link from "next/link";
 import { footerLinks, socialLinks } from "@/lib/data";
 import { smoothScroll } from "@/lib/utils";
 import FooterMeshAnimation from "@/components/ui/FooterMeshAnimation";
@@ -78,12 +79,21 @@ export default function Footer() {
               <ul className="space-y-3">
                 {footerLinks.quickLinks.map((link) => (
                   <li key={link.label}>
-                    <button
-                      onClick={() => handleClick(link.href)}
-                      className="text-sm text-white/70 transition-colors hover:text-white cursor-pointer"
-                    >
-                      {link.label}
-                    </button>
+                    {link.href.startsWith("#") ? (
+                      <button
+                        onClick={() => handleClick(link.href)}
+                        className="text-sm text-white/70 transition-colors hover:text-white cursor-pointer"
+                      >
+                        {link.label}
+                      </button>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-white/70 transition-colors hover:text-white"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

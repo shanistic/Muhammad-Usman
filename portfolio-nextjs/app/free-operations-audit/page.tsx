@@ -353,6 +353,10 @@ export default function AuditPage() {
 
   const goNext = () => {
     if (!canProceed()) return;
+    
+    // Scroll to top immediately
+    window.scrollTo({ top: 0, behavior: "instant" });
+    
     setDirection(1);
     
     // If moving to results page (step 6), submit the form
@@ -361,7 +365,6 @@ export default function AuditPage() {
     }
     
     setStep((s) => Math.min(s + 1, TOTAL_STEPS - 1));
-    containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const submitAudit = async () => {
@@ -397,9 +400,11 @@ export default function AuditPage() {
   };
 
   const goBack = () => {
+    // Scroll to top immediately
+    window.scrollTo({ top: 0, behavior: "instant" });
+    
     setDirection(-1);
     setStep((s) => Math.max(s - 1, 0));
-    containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const selectAnswer = (qId: string, value: number) => {

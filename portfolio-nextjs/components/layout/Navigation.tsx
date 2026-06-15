@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { navLinks } from "@/lib/data";
@@ -99,12 +100,22 @@ export default function Navigation() {
           </ul>
 
           <div className="hidden md:block">
-            <Button
-              size="sm"
-              onClick={() => smoothScroll("booking")}
-            >
-              Book Free Audit
-            </Button>
+            <div className="flex items-center gap-3">
+              <Link href="/free-operations-audit">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                >
+                  Take Free Audit
+                </Button>
+              </Link>
+              <Button
+                size="sm"
+                onClick={() => smoothScroll("booking")}
+              >
+                Book Free Audit
+              </Button>
+            </div>
           </div>
 
           <button
@@ -158,7 +169,15 @@ export default function Navigation() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-8">
+              <div className="mt-8 flex flex-col gap-3">
+                <Link href="/free-operations-audit">
+                  <Button
+                    className="w-full"
+                    variant="secondary"
+                  >
+                    Take Free Audit
+                  </Button>
+                </Link>
                 <Button
                   className="w-full"
                   onClick={() => handleNavClick("#booking")}
