@@ -105,7 +105,7 @@ export default function Hero() {
               <motion.div
                 animate={{ y: [0, -12, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="relative z-10 -mt-28 mx-2 rounded-2xl border-2 border-secondary bg-white p-8 shadow-xl"
+                className="relative z-10 -mt-28 mx-2 rounded-2xl border-2 border-secondary/60 bg-white/70 backdrop-blur-md p-8 shadow-xl"
               >
                 <h3 className="mb-6 text-xl font-bold text-primary">
                   20+ Production Systems Built
@@ -125,7 +125,7 @@ export default function Hero() {
             <motion.div
               animate={{ y: [0, -12, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="hidden lg:block rounded-2xl border-2 border-secondary bg-white p-8 shadow-xl"
+              className="hidden lg:block rounded-2xl border-2 border-secondary/60 bg-white/70 backdrop-blur-md p-8 shadow-xl"
             >
               <h3 className="mb-6 text-xl font-bold text-primary">
                 20+ Production Systems Built

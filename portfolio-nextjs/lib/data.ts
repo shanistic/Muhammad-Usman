@@ -183,6 +183,8 @@ export const heroSystems = [
   "GBP automation",
   "Performance monitoring",
   "Social media content",
+  "Lead Generation",
+  "Video Generation",
 ];
 
 export const problemPoints = [
