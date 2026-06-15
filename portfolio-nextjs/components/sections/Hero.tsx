@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
+import Link from "next/link";
 import { stats, heroSystems } from "@/lib/data";
 import { smoothScroll } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
@@ -84,13 +85,15 @@ export default function Hero() {
                   Book Free Audit
                   <ArrowRight className="h-5 w-5" />
                 </Button>
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  onClick={() => smoothScroll("systems")}
-                >
-                  See How It Works
-                </Button>
+                <Link href="/audit">
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    type="button"
+                  >
+                    See How It Works
+                  </Button>
+                </Link>
               </div>
             </FadeIn>
           </div>

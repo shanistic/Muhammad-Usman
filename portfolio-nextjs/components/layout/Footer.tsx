@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { Mail } from "lucide-react";
 import { footerLinks, socialLinks } from "@/lib/data";
 import { smoothScroll } from "@/lib/utils";
@@ -19,12 +20,19 @@ const iconMap = {
 };
 
 export default function Footer() {
+  const pathname = usePathname();
+
   const handleClick = (href: string) => {
     if (href.startsWith("#")) {
       const id = href.replace("#", "");
       smoothScroll(id);
     }
   };
+
+  // Hide footer on audit page - AFTER all hooks (if any were added)
+  if (pathname === "/audit") {
+    return null;
+  }
 
   return (
     <footer className="relative bg-primary text-white overflow-hidden pt-16 pb-12">
