@@ -26,7 +26,7 @@ export default function CTA() {
             </Button>
             <Link href="/free-operations-audit">
               <Button size="lg" variant="secondary">
-                Take Free Operations Audit
+                Get Free Audit
               </Button>
             </Link>
           </div>

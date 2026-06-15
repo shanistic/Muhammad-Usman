@@ -106,14 +106,14 @@ export default function Navigation() {
                   size="sm"
                   variant="secondary"
                 >
-                  Take Free Audit
+                  Get Free Audit
                 </Button>
               </Link>
               <Button
                 size="sm"
                 onClick={() => smoothScroll("booking")}
               >
-                Book Free Audit
+                Book Free Audit Call
               </Button>
             </div>
           </div>
@@ -175,14 +175,14 @@ export default function Navigation() {
                     className="w-full"
                     variant="secondary"
                   >
-                    Take Free Audit
+                    Get Free Audit
                   </Button>
                 </Link>
                 <Button
                   className="w-full"
                   onClick={() => handleNavClick("#booking")}
                 >
-                  Book Free Audit
+                  Book Free Audit Call
                 </Button>
               </div>
             </motion.div>

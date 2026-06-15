@@ -91,7 +91,7 @@ export default function Hero() {
                     size="lg"
                     type="button"
                   >
-                    Take Free Operations Audit
+                    Get Free Audit
                   </Button>
                 </Link>
               </div>
