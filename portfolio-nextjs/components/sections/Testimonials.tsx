@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ExternalLink } from "lucide-react";
+import Image from "next/image";
 import { testimonials } from "@/lib/data";
 import FadeIn from "@/components/animations/FadeIn";
 
@@ -86,14 +86,25 @@ export default function Testimonials() {
                   {/* Author Info */}
                   <div className="border-t-2 border-secondary pt-6">
                     <div className="flex items-start gap-4">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
-                        {testimonial.avatar}
+                      <div className="relative h-12 w-12 shrink-0 rounded-full overflow-hidden bg-secondary">
+                        <Image
+                          src={testimonial.avatar}
+                          alt={testimonial.author}
+                          fill
+                          className="object-cover"
+                        />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <p className="font-semibold text-primary truncate">
+                          <a
+                            href={testimonial.linkedIn}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold text-primary hover:text-accent transition-colors truncate"
+                            aria-label={`View ${testimonial.author}'s LinkedIn profile`}
+                          >
                             {testimonial.author}
-                          </p>
+                          </a>
                           <a
                             href={testimonial.linkedIn}
                             target="_blank"
