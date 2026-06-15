@@ -45,7 +45,7 @@ export default function Navigation() {
   };
 
   // Hide navigation on audit page - AFTER all hooks
-  if (pathname === "/audit") {
+  if (pathname === "/free-operations-audit") {
     return null;
   }
 

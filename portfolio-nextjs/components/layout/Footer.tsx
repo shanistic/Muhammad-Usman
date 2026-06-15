@@ -30,7 +30,7 @@ export default function Footer() {
   };
 
   // Hide footer on audit page - AFTER all hooks (if any were added)
-  if (pathname === "/audit") {
+  if (pathname === "/free-operations-audit") {
     return null;
   }
 

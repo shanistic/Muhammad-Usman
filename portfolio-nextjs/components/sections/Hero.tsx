@@ -85,7 +85,7 @@ export default function Hero() {
                   Book Free Audit
                   <ArrowRight className="h-5 w-5" />
                 </Button>
-                <Link href="/audit">
+                <Link href="/free-operations-audit">
                   <Button
                     variant="secondary"
                     size="lg"
