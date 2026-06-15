@@ -57,7 +57,7 @@ export default function Hero() {
                 {stats.map((stat) => (
                   <div
                     key={stat.label}
-                    className="rounded-xl border border-secondary bg-white/80 p-4 text-center backdrop-blur-sm"
+                    className="rounded-xl border border-secondary/60 bg-white/70 backdrop-blur-md p-4 text-center"
                   >
                     <div className="text-3xl font-bold text-primary">
                       <Counter end={stat.number} suffix={stat.suffix} />
