@@ -431,29 +431,29 @@ async function generateAuditPDF(
       backgroundColor: "#ffffff",
     });
 
-    // Create PDF
-    const imgData = canvas.toDataURL("image/png");
+    // Create PDF with margins
     const pdf = new jsPDF({
       orientation: "portrait",
       unit: "mm",
       format: "a4",
     });
 
-    const imgWidth = 210; // A4 width in mm
+    const margin = 10; // 1cm margin on all sides
+    const imgWidth = 210 - (margin * 2); // A4 width minus margins
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
     let heightLeft = imgHeight;
-    let position = 0;
+    let position = margin; // Start from margin position
 
     // Add image to PDF, splitting into multiple pages if needed
-    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-    heightLeft -= 297; // A4 height in mm
+    pdf.addImage(canvas.toDataURL("image/png"), "PNG", margin, position, imgWidth, imgHeight);
+    heightLeft -= (297 - (margin * 2)); // A4 height minus margins
 
     while (heightLeft > 0) {
-      position = heightLeft - imgHeight;
+      position = heightLeft - imgHeight + margin;
       pdf.addPage();
-      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-      heightLeft -= 297;
+      pdf.addImage(canvas.toDataURL("image/png"), "PNG", margin, position, imgWidth, imgHeight);
+      heightLeft -= (297 - (margin * 2));
     }
 
     // Download PDF
