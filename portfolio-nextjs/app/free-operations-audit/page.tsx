@@ -330,6 +330,32 @@ async function generateAuditPDF(
   // Create the HTML content for PDF
   const tier = getTier(totalScore);
   
+  // Build questions and answers section
+  let questionsHtml = '';
+  let questionNumber = 1;
+  
+  auditSections.forEach((section) => {
+    questionsHtml += `
+      <div style="margin-bottom: 25px; page-break-inside: avoid;">
+        <h3 style="color: #163d48; margin: 0 0 15px 0; font-size: 18px; border-bottom: 2px solid #2e7d8f; padding-bottom: 10px;">${section.title}</h3>
+        ${section.questions.map((question) => {
+          const answerValue = answers[question.id];
+          const selectedOption = question.options.find(opt => opt.value === answerValue);
+          const answerText = selectedOption ? selectedOption.label : 'Not answered';
+          
+          return `
+            <div style="margin-bottom: 15px; padding: 12px; background: #f9fafb; border-left: 4px solid #2e7d8f; border-radius: 4px;">
+              <p style="color: #0a1f27; font-weight: bold; margin: 0 0 8px 0; font-size: 13px;">Q${questionNumber}. ${question.question}</p>
+              <p style="color: #476b76; margin: 0 0 6px 0; font-size: 12px;"><strong>Answer:</strong> ${answerText}</p>
+              <p style="color: #9ca3af; margin: 0; font-size: 11px;">${question.helpText}</p>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+    questionNumber += section.questions.length;
+  });
+  
   container.innerHTML = `
     <div style="margin-bottom: 40px; border-bottom: 2px solid #2e7d8f; padding-bottom: 20px;">
       <h1 style="color: #0a1f27; margin: 0 0 10px 0; font-size: 32px;">Agency Operations Audit Results</h1>
@@ -384,9 +410,13 @@ async function generateAuditPDF(
       <p style="color: #476b76; line-height: 1.6; font-size: 14px; margin: 0;">${tier.recommendation}</p>
     </div>
 
+    <div style="margin-bottom: 40px; page-break-before: always;">
+      <h2 style="color: #163d48; margin-bottom: 20px; font-size: 20px;">Detailed Answers</h2>
+      ${questionsHtml}
+    </div>
+
     <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #2e7d8f; font-size: 12px; color: #9ca3af; text-align: center;">
       <p style="margin: 5px 0;">Agency Operations Audit | Muhammad Usman</p>
-      <p style="margin: 5px 0;">www.muhammad-usman-ops.com</p>
     </div>
   `;
 
