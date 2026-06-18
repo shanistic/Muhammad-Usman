@@ -612,7 +612,7 @@ export default function AuditPage() {
 
       <div
         ref={containerRef}
-        className="relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-8 sm:px-6 lg:px-8"
+        className="relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-6 sm:px-6 lg:px-8 overflow-hidden"
       >
         {/* ── Header ── */}
         <motion.div
@@ -656,7 +656,7 @@ export default function AuditPage() {
             >
               {/* ─── STEP 0: INTRO ─── */}
               {step === 0 && (
-                <div className="flex min-h-screen flex-col items-center justify-center text-center px-4 py-6">
+                <div className="flex w-full flex-col items-center justify-center text-center py-2">
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -666,25 +666,25 @@ export default function AuditPage() {
                       damping: 15,
                       delay: 0.1,
                     }}
-                    className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-accent to-primary shadow-lg shadow-accent/20"
+                    className="mb-2 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-accent to-primary shadow-lg shadow-accent/20"
                   >
-                    <BarChart3 className="h-8 w-8 text-white" />
+                    <BarChart3 className="h-7 w-7 text-white" />
                   </motion.div>
 
                   <motion.span
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="mb-2 inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent sm:text-sm"
+                    className="mb-1 inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent"
                   >
-                    <Clock className="h-3.5 w-3.5" /> 3-Minute Assessment
+                    <Clock className="h-3 w-3" /> 3-Minute Assessment
                   </motion.span>
 
                   <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="mb-3 text-xl font-bold leading-tight text-dark sm:text-2xl lg:text-3xl"
+                    className="mb-2 text-lg font-bold leading-tight text-dark sm:text-xl"
                   >
                     Agency Operations Audit:{" "}
                     <span className="bg-gradient-to-r from-accent to-emerald-400 bg-clip-text text-transparent">
@@ -696,7 +696,7 @@ export default function AuditPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="mb-4 max-w-xl text-sm leading-relaxed text-dark-medium sm:text-base"
+                    className="mb-3 max-w-lg text-xs leading-relaxed text-dark-medium sm:text-sm"
                   >
                     Most agency founders believe their growth problem is about
                     getting more clients. In most cases, it&apos;s not. The real
@@ -710,7 +710,7 @@ export default function AuditPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="mb-6 grid max-w-md grid-cols-3 gap-2"
+                    className="mb-3 grid max-w-sm grid-cols-3 gap-1.5"
                   >
                     {[
                       {
@@ -735,17 +735,17 @@ export default function AuditPage() {
                       <div
                         key={item.score}
                         className={cn(
-                          "rounded-lg border p-2 text-center",
+                          "rounded-lg border p-1.5 text-center",
                           item.color
                         )}
                       >
-                        <div className="text-xl font-bold text-dark">
+                        <div className="text-lg font-bold text-dark">
                           {item.score}
                         </div>
                         <div className="text-xs font-semibold text-dark-medium">
                           {item.label}
                         </div>
-                        <div className="text-[9px] text-dark-light">
+                        <div className="text-[8px] text-dark-light">
                           {item.desc}
                         </div>
                       </div>
@@ -759,28 +759,28 @@ export default function AuditPage() {
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={goNext}
-                    className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-accent to-primary px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition-shadow hover:shadow-xl hover:shadow-accent/30 cursor-pointer"
+                    className="group mb-2 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-accent to-primary px-5 py-2 text-xs font-semibold text-white shadow-lg shadow-accent/20 transition-shadow hover:shadow-xl hover:shadow-accent/30 cursor-pointer sm:text-sm sm:px-6 sm:py-2.5"
                   >
                     Start Your Audit
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                   </motion.button>
 
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.8 }}
-                    className="mt-3 flex flex-wrap items-center justify-center gap-3 text-xs text-dark-light sm:gap-4 sm:text-sm"
+                    className="flex flex-wrap items-center justify-center gap-2 text-xs text-dark-light"
                   >
                     <span className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" /> ~3 minutes
+                      <Clock className="h-2.5 w-2.5" /> 3 min
                     </span>
                     <span className="h-0.5 w-0.5 rounded-full bg-white/20" />
                     <span className="flex items-center gap-1">
-                      <Zap className="h-3 w-3" /> 12 questions
+                      <Zap className="h-2.5 w-2.5" /> 12 Q
                     </span>
                     <span className="h-0.5 w-0.5 rounded-full bg-white/20" />
                     <span className="flex items-center gap-1">
-                      <TrendingUp className="h-3 w-3" /> Instant results
+                      <TrendingUp className="h-2.5 w-2.5" /> Instant
                     </span>
                   </motion.div>
                 </div>
@@ -788,25 +788,25 @@ export default function AuditPage() {
 
               {/* ─── STEP 1: CONTACT INFO ─── */}
               {step === 1 && (
-                <div className="mx-auto max-w-lg flex flex-col justify-center min-h-screen px-4 py-6 sm:py-0">
-                  <div className="mb-5 text-center">
+                <div className="mx-auto max-w-lg w-full flex flex-col justify-center py-2">
+                  <div className="mb-3 text-center">
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                      className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-accent"
+                      className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-accent"
                     >
                       <User className="h-6 w-6" />
                     </motion.div>
-                    <h2 className="text-xl font-bold text-dark sm:text-2xl">
+                    <h2 className="text-lg font-bold text-dark sm:text-xl">
                       Contact Information
                     </h2>
-                    <p className="mt-1 text-xs text-dark-light sm:text-sm">
+                    <p className="mt-0.5 text-xs text-dark-light sm:text-sm">
                       Tell us about you and your agency
                     </p>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     {[
                       {
                         id: "name",
