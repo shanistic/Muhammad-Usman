@@ -612,7 +612,7 @@ export default function AuditPage() {
 
       <div
         ref={containerRef}
-        className="relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-6 sm:px-6 lg:px-8 overflow-hidden"
+        className="relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-8 sm:px-6 lg:px-8"
       >
         {/* ── Header ── */}
         <motion.div
@@ -875,9 +875,9 @@ export default function AuditPage() {
 
               {/* ─── STEPS 2-5: QUESTION SECTIONS ─── */}
               {step >= 2 && step <= 5 && currentSection && (
-                <div className="mx-auto max-w-2xl flex flex-col h-screen">
-                  {/* Section header - Fixed */}
-                  <div className="mb-6 text-center pt-4 pb-4 flex-shrink-0">
+                <div className="mx-auto max-w-2xl">
+                  {/* Section header */}
+                  <div className="mb-8 text-center">
                     <motion.div
                       initial={{ scale: 0, rotate: -20 }}
                       animate={{ scale: 1, rotate: 0 }}
@@ -886,7 +886,7 @@ export default function AuditPage() {
                         stiffness: 200,
                         damping: 15,
                       }}
-                      className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent"
+                      className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent"
                     >
                       {(() => {
                         const IconComponent = sectionIconMap[currentSection.id];
@@ -911,8 +911,8 @@ export default function AuditPage() {
                     </motion.p>
                   </div>
 
-                  {/* Questions - Scrollable */}
-                  <div className="space-y-4 overflow-y-auto flex-1 pr-3">
+                  {/* Questions */}
+                  <div className="space-y-4">
                     {currentSection.questions.map((q, qi) => (
                       <motion.div
                         key={q.id}
@@ -980,9 +980,9 @@ export default function AuditPage() {
 
               {/* ─── STEP 6: RESULTS ─── */}
               {step === 6 && (
-                <div className="mx-auto max-w-2xl text-center flex flex-col h-screen">
-                  {/* Top section - Fixed */}
-                  <div className="pt-4 pb-4 flex-shrink-0">
+                <div className="mx-auto max-w-2xl text-center">
+                  {/* Top section */}
+                  <div className="pb-4">
                     {/* Score Ring */}
                     <motion.div
                       initial={{ scale: 0.5, opacity: 0 }}
@@ -1033,38 +1033,36 @@ export default function AuditPage() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.7 }}
-                      className="mx-auto mb-4 max-w-lg text-sm leading-relaxed text-dark-medium"
+                      className="mx-auto mb-6 max-w-lg text-sm leading-relaxed text-dark-medium"
                     >
                       {getTier(totalScore).description}
                     </motion.p>
                   </div>
 
-                  {/* Scrollable section - Section breakdown and CTA */}
-                  <div className="overflow-y-auto flex-1 pr-3 pb-4">
-                    {/* Section breakdown */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8 }}
-                      className="mb-6 space-y-2 text-left"
-                    >
-                      <h3 className="mb-3 text-center text-base font-semibold text-dark sm:text-lg">
-                        Section Breakdown
-                      </h3>
-                      {auditSections.map((sec, i) => (
-                        <SectionScoreBar
-                          key={sec.id}
-                          section={sec}
-                          score={sectionScore(sec)}
-                          max={sec.questions.length * 2}
-                          delay={0.9 + i * 0.15}
-                        />
-                      ))}
-                    </motion.div>
+                  {/* Section breakdown */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 }}
+                    className="mb-6 space-y-2 text-left"
+                  >
+                    <h3 className="mb-3 text-center text-base font-semibold text-dark sm:text-lg">
+                      Section Breakdown
+                    </h3>
+                    {auditSections.map((sec, i) => (
+                      <SectionScoreBar
+                        key={sec.id}
+                        section={sec}
+                        score={sectionScore(sec)}
+                        max={sec.questions.length * 2}
+                        delay={0.9 + i * 0.15}
+                      />
+                    ))}
+                  </motion.div>
 
-                    {/* CTA */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
+                  {/* CTA */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.6 }}
                     className="rounded-2xl border border-accent/30 bg-accent/5 p-6 sm:p-8"
@@ -1096,7 +1094,6 @@ export default function AuditPage() {
                       </Link>
                     </div>
                   </motion.div>
-                    </div>
                 </div>
               )}
             </motion.div>
