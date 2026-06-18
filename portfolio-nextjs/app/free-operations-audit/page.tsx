@@ -342,10 +342,11 @@ async function generateAuditPDF(
           const answerValue = answers[question.id];
           const selectedOption = question.options.find(opt => opt.value === answerValue);
           const answerText = selectedOption ? selectedOption.label : 'Not answered';
+          const currentQNum = questionNumber++;
           
           return `
             <div style="margin-bottom: 15px; padding: 12px; background: #f9fafb; border-left: 4px solid #2e7d8f; border-radius: 4px;">
-              <p style="color: #0a1f27; font-weight: bold; margin: 0 0 8px 0; font-size: 13px;">Q${questionNumber}. ${question.question}</p>
+              <p style="color: #0a1f27; font-weight: bold; margin: 0 0 8px 0; font-size: 13px;">Q${currentQNum}. ${question.question}</p>
               <p style="color: #476b76; margin: 0 0 6px 0; font-size: 12px;"><strong>Answer:</strong> ${answerText}</p>
               <p style="color: #9ca3af; margin: 0; font-size: 11px;">${question.helpText}</p>
             </div>
@@ -353,7 +354,6 @@ async function generateAuditPDF(
         }).join('')}
       </div>
     `;
-    questionNumber += section.questions.length;
   });
   
   container.innerHTML = `
@@ -656,7 +656,7 @@ export default function AuditPage() {
             >
               {/* ─── STEP 0: INTRO ─── */}
               {step === 0 && (
-                <div className="flex min-h-[70vh] flex-col items-center justify-center text-center">
+                <div className="flex min-h-screen flex-col items-center justify-center text-center px-4 py-6">
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -666,25 +666,25 @@ export default function AuditPage() {
                       damping: 15,
                       delay: 0.1,
                     }}
-                    className="mb-8 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-accent to-primary shadow-lg shadow-accent/20"
+                    className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-accent to-primary shadow-lg shadow-accent/20"
                   >
-                    <BarChart3 className="h-10 w-10 text-white" />
+                    <BarChart3 className="h-8 w-8 text-white" />
                   </motion.div>
 
                   <motion.span
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="mb-4 inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-2 text-sm font-semibold text-accent"
+                    className="mb-2 inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent sm:text-sm"
                   >
-                    <Clock className="h-4 w-4" /> 3-Minute Assessment
+                    <Clock className="h-3.5 w-3.5" /> 3-Minute Assessment
                   </motion.span>
 
                   <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="mb-6 text-3xl font-bold leading-tight text-dark sm:text-4xl lg:text-5xl"
+                    className="mb-3 text-xl font-bold leading-tight text-dark sm:text-2xl lg:text-3xl"
                   >
                     Agency Operations Audit:{" "}
                     <span className="bg-gradient-to-r from-accent to-emerald-400 bg-clip-text text-transparent">
@@ -696,7 +696,7 @@ export default function AuditPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="mb-8 max-w-2xl text-lg leading-relaxed text-dark-medium"
+                    className="mb-4 max-w-xl text-sm leading-relaxed text-dark-medium sm:text-base"
                   >
                     Most agency founders believe their growth problem is about
                     getting more clients. In most cases, it&apos;s not. The real
@@ -710,7 +710,7 @@ export default function AuditPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="mb-10 grid max-w-md grid-cols-3 gap-3"
+                    className="mb-6 grid max-w-md grid-cols-3 gap-2"
                   >
                     {[
                       {
@@ -735,17 +735,17 @@ export default function AuditPage() {
                       <div
                         key={item.score}
                         className={cn(
-                          "rounded-xl border p-3 text-center",
+                          "rounded-lg border p-2 text-center",
                           item.color
                         )}
                       >
-                        <div className="text-2xl font-bold text-dark">
+                        <div className="text-xl font-bold text-dark">
                           {item.score}
                         </div>
                         <div className="text-xs font-semibold text-dark-medium">
                           {item.label}
                         </div>
-                        <div className="text-[10px] text-dark-light">
+                        <div className="text-[9px] text-dark-light">
                           {item.desc}
                         </div>
                       </div>
@@ -759,28 +759,28 @@ export default function AuditPage() {
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={goNext}
-                    className="group inline-flex items-center gap-3 rounded-xl bg-gradient-to-r from-accent to-primary px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-accent/20 transition-shadow hover:shadow-xl hover:shadow-accent/30 cursor-pointer"
+                    className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-accent to-primary px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition-shadow hover:shadow-xl hover:shadow-accent/30 cursor-pointer"
                   >
                     Start Your Audit
-                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </motion.button>
 
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.8 }}
-                    className="mt-6 flex items-center gap-4 text-sm text-dark-light"
+                    className="mt-3 flex flex-wrap items-center justify-center gap-3 text-xs text-dark-light sm:gap-4 sm:text-sm"
                   >
                     <span className="flex items-center gap-1">
-                      <Clock className="h-3.5 w-3.5" /> ~3 minutes
+                      <Clock className="h-3 w-3" /> ~3 minutes
                     </span>
-                    <span className="h-1 w-1 rounded-full bg-white/20" />
+                    <span className="h-0.5 w-0.5 rounded-full bg-white/20" />
                     <span className="flex items-center gap-1">
-                      <Zap className="h-3.5 w-3.5" /> 12 questions
+                      <Zap className="h-3 w-3" /> 12 questions
                     </span>
-                    <span className="h-1 w-1 rounded-full bg-white/20" />
+                    <span className="h-0.5 w-0.5 rounded-full bg-white/20" />
                     <span className="flex items-center gap-1">
-                      <TrendingUp className="h-3.5 w-3.5" /> Instant results
+                      <TrendingUp className="h-3 w-3" /> Instant results
                     </span>
                   </motion.div>
                 </div>
@@ -788,25 +788,25 @@ export default function AuditPage() {
 
               {/* ─── STEP 1: CONTACT INFO ─── */}
               {step === 1 && (
-                <div className="mx-auto max-w-lg">
-                  <div className="mb-8 text-center">
+                <div className="mx-auto max-w-lg flex flex-col justify-center min-h-screen px-4 py-6 sm:py-0">
+                  <div className="mb-5 text-center">
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                      className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent"
+                      className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-accent"
                     >
-                      <User className="h-7 w-7" />
+                      <User className="h-6 w-6" />
                     </motion.div>
-                    <h2 className="text-2xl font-bold text-dark">
+                    <h2 className="text-xl font-bold text-dark sm:text-2xl">
                       Contact Information
                     </h2>
-                    <p className="mt-2 text-sm text-dark-light">
+                    <p className="mt-1 text-xs text-dark-light sm:text-sm">
                       Tell us about you and your agency
                     </p>
                   </div>
 
-                  <div className="space-y-5">
+                  <div className="space-y-4">
                     {[
                       {
                         id: "name",
@@ -847,7 +847,7 @@ export default function AuditPage() {
                       >
                         <label
                           htmlFor={field.id}
-                          className="mb-2 block text-sm font-medium text-dark-medium"
+                          className="mb-1 block text-xs font-medium text-dark-medium sm:text-sm"
                         >
                           {field.label}{" "}
                           {field.key !== "linkedinUrl" && (
@@ -865,7 +865,7 @@ export default function AuditPage() {
                               [field.key]: e.target.value,
                             }))
                           }
-                          className="w-full rounded-xl border border-secondary bg-white px-4 py-3.5 text-dark placeholder-dark-light/40 outline-none transition-all focus:border-accent/50 focus:ring-2 focus:ring-accent/20"
+                          className="w-full rounded-lg border border-secondary bg-white px-3 py-2 text-xs text-dark placeholder-dark-light/40 outline-none transition-all focus:border-accent/50 focus:ring-2 focus:ring-accent/20 sm:text-sm sm:py-2.5 sm:px-4"
                         />
                       </motion.div>
                     ))}
