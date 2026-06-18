@@ -656,7 +656,7 @@ export default function AuditPage() {
             >
               {/* ─── STEP 0: INTRO ─── */}
               {step === 0 && (
-                <div className="flex w-full flex-col items-center justify-center text-center py-2">
+                <div className="flex w-full flex-col items-center justify-center text-center py-6">
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -666,25 +666,25 @@ export default function AuditPage() {
                       damping: 15,
                       delay: 0.1,
                     }}
-                    className="mb-2 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-accent to-primary shadow-lg shadow-accent/20"
+                    className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-accent to-primary shadow-lg shadow-accent/20"
                   >
-                    <BarChart3 className="h-7 w-7 text-white" />
+                    <BarChart3 className="h-10 w-10 text-white" />
                   </motion.div>
 
                   <motion.span
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="mb-1 inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent"
+                    className="mb-3 inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-2 text-sm font-semibold text-accent"
                   >
-                    <Clock className="h-3 w-3" /> 3-Minute Assessment
+                    <Clock className="h-4 w-4" /> 3-Minute Assessment
                   </motion.span>
 
                   <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="mb-2 text-lg font-bold leading-tight text-dark sm:text-xl"
+                    className="mb-4 text-2xl font-bold leading-tight text-dark sm:text-3xl"
                   >
                     Agency Operations Audit:{" "}
                     <span className="bg-gradient-to-r from-accent to-emerald-400 bg-clip-text text-transparent">
@@ -696,7 +696,7 @@ export default function AuditPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="mb-3 max-w-lg text-xs leading-relaxed text-dark-medium sm:text-sm"
+                    className="mb-6 max-w-xl text-sm leading-relaxed text-dark-medium sm:text-base"
                   >
                     Most agency founders believe their growth problem is about
                     getting more clients. In most cases, it&apos;s not. The real
@@ -710,7 +710,7 @@ export default function AuditPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="mb-3 grid max-w-sm grid-cols-3 gap-1.5"
+                    className="mb-6 grid max-w-md grid-cols-3 gap-3"
                   >
                     {[
                       {
@@ -735,17 +735,17 @@ export default function AuditPage() {
                       <div
                         key={item.score}
                         className={cn(
-                          "rounded-lg border p-1.5 text-center",
+                          "rounded-xl border p-2.5 text-center",
                           item.color
                         )}
                       >
-                        <div className="text-lg font-bold text-dark">
+                        <div className="text-2xl font-bold text-dark">
                           {item.score}
                         </div>
                         <div className="text-xs font-semibold text-dark-medium">
                           {item.label}
                         </div>
-                        <div className="text-[8px] text-dark-light">
+                        <div className="text-[9px] text-dark-light">
                           {item.desc}
                         </div>
                       </div>
@@ -759,28 +759,28 @@ export default function AuditPage() {
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={goNext}
-                    className="group mb-2 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-accent to-primary px-5 py-2 text-xs font-semibold text-white shadow-lg shadow-accent/20 transition-shadow hover:shadow-xl hover:shadow-accent/30 cursor-pointer sm:text-sm sm:px-6 sm:py-2.5"
+                    className="group mb-4 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-accent to-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition-shadow hover:shadow-xl hover:shadow-accent/30 cursor-pointer"
                   >
                     Start Your Audit
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </motion.button>
 
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.8 }}
-                    className="flex flex-wrap items-center justify-center gap-2 text-xs text-dark-light"
+                    className="flex flex-wrap items-center justify-center gap-4 text-sm text-dark-light"
                   >
                     <span className="flex items-center gap-1">
-                      <Clock className="h-2.5 w-2.5" /> 3 min
+                      <Clock className="h-4 w-4" /> ~3 minutes
                     </span>
-                    <span className="h-0.5 w-0.5 rounded-full bg-white/20" />
+                    <span className="h-1 w-1 rounded-full bg-white/20" />
                     <span className="flex items-center gap-1">
-                      <Zap className="h-2.5 w-2.5" /> 12 Q
+                      <Zap className="h-4 w-4" /> 12 questions
                     </span>
-                    <span className="h-0.5 w-0.5 rounded-full bg-white/20" />
+                    <span className="h-1 w-1 rounded-full bg-white/20" />
                     <span className="flex items-center gap-1">
-                      <TrendingUp className="h-2.5 w-2.5" /> Instant
+                      <TrendingUp className="h-4 w-4" /> Instant results
                     </span>
                   </motion.div>
                 </div>
@@ -788,25 +788,25 @@ export default function AuditPage() {
 
               {/* ─── STEP 1: CONTACT INFO ─── */}
               {step === 1 && (
-                <div className="mx-auto max-w-lg w-full flex flex-col justify-center py-2">
-                  <div className="mb-3 text-center">
+                <div className="mx-auto max-w-lg w-full flex flex-col justify-center py-6">
+                  <div className="mb-6 text-center">
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                      className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-accent"
+                      className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-accent/10 text-accent"
                     >
-                      <User className="h-6 w-6" />
+                      <User className="h-8 w-8" />
                     </motion.div>
-                    <h2 className="text-lg font-bold text-dark sm:text-xl">
+                    <h2 className="text-2xl font-bold text-dark sm:text-2xl">
                       Contact Information
                     </h2>
-                    <p className="mt-0.5 text-xs text-dark-light sm:text-sm">
+                    <p className="mt-2 text-sm text-dark-light sm:text-base">
                       Tell us about you and your agency
                     </p>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-5">
                     {[
                       {
                         id: "name",
@@ -847,7 +847,7 @@ export default function AuditPage() {
                       >
                         <label
                           htmlFor={field.id}
-                          className="mb-1 block text-xs font-medium text-dark-medium sm:text-sm"
+                          className="mb-2 block text-sm font-medium text-dark-medium"
                         >
                           {field.label}{" "}
                           {field.key !== "linkedinUrl" && (
@@ -865,7 +865,7 @@ export default function AuditPage() {
                               [field.key]: e.target.value,
                             }))
                           }
-                          className="w-full rounded-lg border border-secondary bg-white px-3 py-2 text-xs text-dark placeholder-dark-light/40 outline-none transition-all focus:border-accent/50 focus:ring-2 focus:ring-accent/20 sm:text-sm sm:py-2.5 sm:px-4"
+                          className="w-full rounded-lg border border-secondary bg-white px-4 py-3 text-sm text-dark placeholder-dark-light/40 outline-none transition-all focus:border-accent/50 focus:ring-2 focus:ring-accent/20"
                         />
                       </motion.div>
                     ))}
@@ -875,9 +875,9 @@ export default function AuditPage() {
 
               {/* ─── STEPS 2-5: QUESTION SECTIONS ─── */}
               {step >= 2 && step <= 5 && currentSection && (
-                <div className="mx-auto max-w-2xl">
-                  {/* Section header */}
-                  <div className="mb-8 text-center">
+                <div className="mx-auto max-w-2xl flex flex-col h-screen">
+                  {/* Section header - Fixed */}
+                  <div className="mb-6 text-center pt-4 pb-4 flex-shrink-0">
                     <motion.div
                       initial={{ scale: 0, rotate: -20 }}
                       animate={{ scale: 1, rotate: 0 }}
@@ -886,7 +886,7 @@ export default function AuditPage() {
                         stiffness: 200,
                         damping: 15,
                       }}
-                      className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent"
+                      className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent"
                     >
                       {(() => {
                         const IconComponent = sectionIconMap[currentSection.id];
@@ -911,8 +911,8 @@ export default function AuditPage() {
                     </motion.p>
                   </div>
 
-                  {/* Questions */}
-                  <div className="space-y-6">
+                  {/* Questions - Scrollable */}
+                  <div className="space-y-4 overflow-y-auto flex-1 pr-3">
                     {currentSection.questions.map((q, qi) => (
                       <motion.div
                         key={q.id}
@@ -980,86 +980,91 @@ export default function AuditPage() {
 
               {/* ─── STEP 6: RESULTS ─── */}
               {step === 6 && (
-                <div className="mx-auto max-w-2xl text-center">
-                  {/* Celebration burst */}
-                  <motion.div
-                    initial={{ scale: 0.5, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 150,
-                      damping: 12,
-                    }}
-                    className="mb-2"
-                  >
-                    <div className="mx-auto mb-6 flex justify-center">
-                      <ScoreRing score={totalScore} max={24} />
-                    </div>
-                  </motion.div>
+                <div className="mx-auto max-w-2xl text-center flex flex-col h-screen">
+                  {/* Top section - Fixed */}
+                  <div className="pt-4 pb-4 flex-shrink-0">
+                    {/* Score Ring */}
+                    <motion.div
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 150,
+                        damping: 12,
+                      }}
+                      className="mb-2"
+                    >
+                      <div className="mx-auto mb-4 flex justify-center">
+                        <ScoreRing score={totalScore} max={24} />
+                      </div>
+                    </motion.div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    <h2 className="mb-2 text-3xl font-bold text-dark sm:text-4xl">
-                      Thank You, {contact.name}!
-                    </h2>
-                    <p className="mb-2 text-lg text-dark-medium">
-                      Here&apos;s your Agency Operations Score
-                    </p>
-                  </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                    >
+                      <h2 className="mb-1 text-2xl font-bold text-dark sm:text-3xl">
+                        Thank You, {contact.name}!
+                      </h2>
+                      <p className="mb-2 text-base text-dark-medium sm:text-lg">
+                        Here&apos;s your Agency Operations Score
+                      </p>
+                    </motion.div>
 
-                  {/* Tier badge */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.6 }}
-                    className={cn(
-                      "mx-auto mb-8 inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold",
-                      getTier(totalScore).bgColor,
-                      getTier(totalScore).borderColor,
-                      getTier(totalScore).color
-                    )}
-                  >
-                    <Star className="h-4 w-4" />
-                    {getTier(totalScore).label}
-                  </motion.div>
+                    {/* Tier badge */}
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.6 }}
+                      className={cn(
+                        "mx-auto mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold",
+                        getTier(totalScore).bgColor,
+                        getTier(totalScore).borderColor,
+                        getTier(totalScore).color
+                      )}
+                    >
+                      <Star className="h-4 w-4" />
+                      {getTier(totalScore).label}
+                    </motion.div>
 
-                  {/* Tier description */}
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.7 }}
-                    className="mx-auto mb-10 max-w-lg text-base leading-relaxed text-dark-medium"
-                  >
-                    {getTier(totalScore).description}
-                  </motion.p>
+                    {/* Tier description */}
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.7 }}
+                      className="mx-auto mb-4 max-w-lg text-sm leading-relaxed text-dark-medium"
+                    >
+                      {getTier(totalScore).description}
+                    </motion.p>
+                  </div>
 
-                  {/* Section breakdown */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 }}
-                    className="mb-10 space-y-3 text-left"
-                  >
-                    <h3 className="mb-4 text-center text-lg font-semibold text-dark">
-                      Section Breakdown
-                    </h3>
-                    {auditSections.map((sec, i) => (
-                      <SectionScoreBar
-                        key={sec.id}
-                        section={sec}
-                        score={sectionScore(sec)}
-                        max={sec.questions.length * 2}
-                        delay={0.9 + i * 0.15}
-                      />
-                    ))}
-                  </motion.div>
+                  {/* Scrollable section - Section breakdown and CTA */}
+                  <div className="overflow-y-auto flex-1 pr-3 pb-4">
+                    {/* Section breakdown */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.8 }}
+                      className="mb-6 space-y-2 text-left"
+                    >
+                      <h3 className="mb-3 text-center text-base font-semibold text-dark sm:text-lg">
+                        Section Breakdown
+                      </h3>
+                      {auditSections.map((sec, i) => (
+                        <SectionScoreBar
+                          key={sec.id}
+                          section={sec}
+                          score={sectionScore(sec)}
+                          max={sec.questions.length * 2}
+                          delay={0.9 + i * 0.15}
+                        />
+                      ))}
+                    </motion.div>
 
-                  {/* CTA */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    {/* CTA */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.6 }}
                     className="rounded-2xl border border-accent/30 bg-accent/5 p-6 sm:p-8"
@@ -1083,13 +1088,6 @@ export default function AuditPage() {
                         Book Free 30-Min Audit Call
                         <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </a>
-                      <button
-                        onClick={handleDownloadPDF}
-                        className="group inline-flex items-center gap-2 rounded-xl border border-accent bg-accent/10 px-6 py-3.5 text-sm font-semibold text-accent transition-all hover:bg-accent/20 hover:border-accent"
-                      >
-                        <Download className="h-5 w-5" />
-                        Download as PDF
-                      </button>
                       <Link
                         href="/"
                         className="inline-flex items-center gap-2 rounded-xl border border-secondary px-6 py-3.5 text-sm font-medium text-dark-medium transition-all hover:border-accent/30 hover:text-dark"
@@ -1098,11 +1096,30 @@ export default function AuditPage() {
                       </Link>
                     </div>
                   </motion.div>
+                    </div>
                 </div>
               )}
             </motion.div>
           </AnimatePresence>
         </div>
+
+        {/* ── Download PDF Button - Results Page Only ── */}
+        {step === 6 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="mt-6 flex justify-center border-t border-secondary pt-6"
+          >
+            <button
+              onClick={handleDownloadPDF}
+              className="group inline-flex items-center gap-2 rounded-xl border border-accent bg-accent/10 px-8 py-3 text-sm font-semibold text-accent transition-all hover:bg-accent/20 hover:border-accent hover:shadow-lg hover:shadow-accent/20"
+            >
+              <Download className="h-5 w-5" />
+              Download as PDF
+            </button>
+          </motion.div>
+        )}
 
         {/* ── Navigation buttons ── */}
         {step > 0 && step < TOTAL_STEPS - 1 && (
