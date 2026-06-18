@@ -438,31 +438,61 @@ async function generateAuditPDF(
       format: "a4",
     });
 
-    const marginTop = 10; // 1cm margin
-    const marginBottom = 10; // 1cm margin
-    const marginLeft = 10; // 1cm margin
-    const marginRight = 10; // 1cm margin
+    const marginTop = 10; // 10mm (1cm)
+    const marginBottom = 25.4; // 1 inch = 25.4mm
+    const marginLeft = 10; // 10mm (1cm)
+    const marginRight = 10; // 10mm (1cm)
     
     const pageHeight = 297; // A4 height in mm
     const pageWidth = 210; // A4 width in mm
-    const usableHeight = pageHeight - marginTop - marginBottom; // Available height per page
     
-    const imgWidth = pageWidth - (marginLeft + marginRight); // Image width with left/right margins
+    const imgWidth = pageWidth - marginLeft - marginRight;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    const usableHeight = pageHeight - marginTop - marginBottom;
 
-    let heightLeft = imgHeight;
-    let position = marginTop; // Start from top margin
-
-    // Add first page
-    pdf.addImage(canvas.toDataURL("image/png"), "PNG", marginLeft, position, imgWidth, imgHeight);
-    heightLeft -= usableHeight;
-
-    // Add additional pages if needed
-    while (heightLeft > 0) {
-      pdf.addPage();
-      position = marginTop - heightLeft;
-      pdf.addImage(canvas.toDataURL("image/png"), "PNG", marginLeft, position, imgWidth, imgHeight);
-      heightLeft -= usableHeight;
+    // Get canvas image data
+    const imgData = canvas.toDataURL("image/png");
+    
+    // Calculate total pages needed
+    const totalPages = Math.ceil(imgHeight / usableHeight);
+    
+    // Split image into pages
+    for (let page = 0; page < totalPages; page++) {
+      if (page > 0) {
+        pdf.addPage();
+      }
+      
+      // Calculate source and destination coordinates
+      const sourceY = (page * usableHeight * canvas.height) / imgHeight;
+      const sourceHeight = Math.min(
+        (usableHeight * canvas.height) / imgHeight,
+        canvas.height - sourceY
+      );
+      
+      // Create a temporary canvas for this page
+      const tempCanvas = document.createElement("canvas");
+      tempCanvas.width = canvas.width;
+      tempCanvas.height = sourceHeight;
+      
+      const tempCtx = tempCanvas.getContext("2d");
+      if (tempCtx) {
+        tempCtx.drawImage(
+          canvas,
+          0,
+          sourceY,
+          canvas.width,
+          sourceHeight,
+          0,
+          0,
+          canvas.width,
+          sourceHeight
+        );
+      }
+      
+      const pageImgData = tempCanvas.toDataURL("image/png");
+      const pageImgHeight = (sourceHeight * imgWidth) / canvas.width;
+      
+      pdf.addImage(pageImgData, "PNG", marginLeft, marginTop, imgWidth, pageImgHeight);
     }
 
     // Download PDF
