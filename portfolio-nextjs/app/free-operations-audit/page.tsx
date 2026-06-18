@@ -342,12 +342,14 @@ async function generateAuditPDF(
           const answerValue = answers[question.id];
           const selectedOption = question.options.find(opt => opt.value === answerValue);
           const answerText = selectedOption ? selectedOption.label : 'Not answered';
+          const points = answerValue !== undefined ? answerValue : 0;
           const currentQNum = questionNumber++;
           
           return `
             <div style="margin-bottom: 15px; padding: 12px; background: #f9fafb; border-left: 4px solid #2e7d8f; border-radius: 4px;">
               <p style="color: #0a1f27; font-weight: bold; margin: 0 0 8px 0; font-size: 13px;">Q${currentQNum}. ${question.question}</p>
               <p style="color: #476b76; margin: 0 0 6px 0; font-size: 12px;"><strong>Answer:</strong> ${answerText}</p>
+              <p style="color: #2e7d8f; margin: 0 0 6px 0; font-size: 12px; font-weight: bold;"><strong>Points:</strong> ${points}/2</p>
               <p style="color: #9ca3af; margin: 0; font-size: 11px;">${question.helpText}</p>
             </div>
           `;
@@ -391,18 +393,6 @@ async function generateAuditPDF(
       <div style="font-size: 48px; font-weight: bold; color: #2e7d8f; margin-bottom: 10px;">${totalScore}/24</div>
       <div style="font-size: 18px; font-weight: bold; color: #163d48; margin-bottom: 5px;">${tier.label}</div>
       <p style="color: #476b76; margin: 10px 0; font-size: 13px; line-height: 1.6;">${tier.description}</p>
-    </div>
-
-    <div style="margin-bottom: 30px;">
-      <h2 style="color: #163d48; margin-bottom: 15px; font-size: 20px;">Section Breakdown</h2>
-      <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-        ${sectionScores.map(section => `
-        <tr style="border-bottom: 1px solid #e7eef2;">
-          <td style="padding: 12px 0; font-weight: bold; color: #163d48; width: 60%;">${section.name}</td>
-          <td style="padding: 12px 0; text-align: right; color: #2e7d8f; font-weight: bold;">${section.score}/${section.max}</td>
-        </tr>
-        `).join('')}
-      </table>
     </div>
 
     <div style="margin-bottom: 30px;">
@@ -514,6 +504,7 @@ export default function AuditPage() {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [direction, setDirection] = useState(1); // 1 = forward, -1 = back
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   /* ── helpers ── */
@@ -554,12 +545,15 @@ export default function AuditPage() {
     
     setDirection(1);
     
-    // If moving to results page (step 6), submit the form
+    // If moving to results page (step 6), submit the form and show download modal
     if (step === 5) {
       submitAudit();
+      setStep((s) => Math.min(s + 1, TOTAL_STEPS - 1));
+      // Show modal after a short delay to let the page transition
+      setTimeout(() => setShowDownloadModal(true), 500);
+    } else {
+      setStep((s) => Math.min(s + 1, TOTAL_STEPS - 1));
     }
-    
-    setStep((s) => Math.min(s + 1, TOTAL_STEPS - 1));
   };
 
   const submitAudit = async () => {
@@ -1139,23 +1133,81 @@ export default function AuditPage() {
           </AnimatePresence>
         </div>
 
-        {/* ── Download PDF Button - Results Page Only ── */}
-        {step === 6 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mt-6 flex justify-center border-t border-secondary pt-6"
-          >
-            <button
-              onClick={handleDownloadPDF}
-              className="group inline-flex items-center gap-2 rounded-xl border border-accent bg-accent/10 px-8 py-3 text-sm font-semibold text-accent transition-all hover:bg-accent/20 hover:border-accent hover:shadow-lg hover:shadow-accent/20"
+        {/* ── Download PDF Modal - Popup on Completion ── */}
+        <AnimatePresence>
+          {showDownloadModal && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
+              onClick={() => setShowDownloadModal(false)}
             >
-              <Download className="h-5 w-5" />
-              Download as PDF
-            </button>
-          </motion.div>
-        )}
+              <motion.div
+                initial={{ scale: 0.95, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.95, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative rounded-2xl bg-white shadow-2xl max-w-md w-full p-8"
+              >
+                <div className="text-center mb-6">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                    className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100"
+                  >
+                    <CheckCircle2 className="h-8 w-8 text-emerald-600" />
+                  </motion.div>
+                  <h2 className="mb-2 text-2xl font-bold text-dark">
+                    Audit Complete! 🎉
+                  </h2>
+                  <p className="text-sm text-dark-medium">
+                    Your results are ready. Download your comprehensive audit report.
+                  </p>
+                </div>
+
+                <div className="mb-6 rounded-lg bg-emerald-50 p-4">
+                  <p className="text-sm text-emerald-900">
+                    <strong>Your Score:</strong> {totalScore}/24
+                  </p>
+                  <p className="text-sm text-emerald-900 mt-2">
+                    <strong>Rating:</strong> {getTier(totalScore).label}
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <button
+                    onClick={() => {
+                      handleDownloadPDF();
+                      setShowDownloadModal(false);
+                    }}
+                    className="group w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition-all hover:shadow-xl hover:shadow-accent/30"
+                  >
+                    <Download className="h-5 w-5" />
+                    Download PDF Report
+                  </button>
+                  <button
+                    onClick={() => setShowDownloadModal(false)}
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-secondary bg-white px-6 py-3 text-sm font-medium text-dark-medium transition-all hover:border-accent/30 hover:text-dark"
+                  >
+                    View Results Now
+                  </button>
+                </div>
+
+                <button
+                  onClick={() => setShowDownloadModal(false)}
+                  className="absolute top-4 right-4 text-dark-light hover:text-dark transition-colors"
+                >
+                  <span className="sr-only">Close</span>
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* ── Navigation buttons ── */}
         {step > 0 && step < TOTAL_STEPS - 1 && (
