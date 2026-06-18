@@ -438,22 +438,31 @@ async function generateAuditPDF(
       format: "a4",
     });
 
-    const margin = 10; // 1cm margin on all sides
-    const imgWidth = 210 - (margin * 2); // A4 width minus margins
+    const marginTop = 10; // 1cm margin
+    const marginBottom = 10; // 1cm margin
+    const marginLeft = 10; // 1cm margin
+    const marginRight = 10; // 1cm margin
+    
+    const pageHeight = 297; // A4 height in mm
+    const pageWidth = 210; // A4 width in mm
+    const usableHeight = pageHeight - marginTop - marginBottom; // Available height per page
+    
+    const imgWidth = pageWidth - (marginLeft + marginRight); // Image width with left/right margins
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
     let heightLeft = imgHeight;
-    let position = margin; // Start from margin position
+    let position = marginTop; // Start from top margin
 
-    // Add image to PDF, splitting into multiple pages if needed
-    pdf.addImage(canvas.toDataURL("image/png"), "PNG", margin, position, imgWidth, imgHeight);
-    heightLeft -= (297 - (margin * 2)); // A4 height minus margins
+    // Add first page
+    pdf.addImage(canvas.toDataURL("image/png"), "PNG", marginLeft, position, imgWidth, imgHeight);
+    heightLeft -= usableHeight;
 
+    // Add additional pages if needed
     while (heightLeft > 0) {
-      position = heightLeft - imgHeight + margin;
       pdf.addPage();
-      pdf.addImage(canvas.toDataURL("image/png"), "PNG", margin, position, imgWidth, imgHeight);
-      heightLeft -= (297 - (margin * 2));
+      position = marginTop - heightLeft;
+      pdf.addImage(canvas.toDataURL("image/png"), "PNG", marginLeft, position, imgWidth, imgHeight);
+      heightLeft -= usableHeight;
     }
 
     // Download PDF
