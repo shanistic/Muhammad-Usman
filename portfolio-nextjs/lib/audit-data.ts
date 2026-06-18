@@ -1,3 +1,10 @@
+export interface ContactInfo {
+  name: string;
+  agency: string;
+  email: string;
+  linkedinUrl: string;
+}
+
 export interface AuditQuestion {
   id: string;
   question: string;

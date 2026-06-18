@@ -72,6 +72,13 @@ export async function POST(request: Request) {
                 <p style="color: #476b76; margin-top: 15px;">${tier.description}</p>
               </div>
 
+              <h2 style="color: #163d48; margin-top: 30px;">Your Information</h2>
+              <div class="section">
+                <div style="margin-bottom: 10px;"><strong style="color: #163d48;">Name:</strong> ${contact.name}</div>
+                <div style="margin-bottom: 10px;"><strong style="color: #163d48;">Agency:</strong> ${contact.agency}</div>
+                ${contact.linkedinUrl ? `<div style="margin-bottom: 10px;"><strong style="color: #163d48;">LinkedIn:</strong> <a href="${contact.linkedinUrl}" style="color: #2e7d8f; text-decoration: none;">${contact.linkedinUrl}</a></div>` : ''}
+              </div>
+
               <h2 style="color: #163d48; margin-top: 30px;">Section Breakdown</h2>
               ${sectionScores.map(section => `
                 <div class="section">
@@ -132,6 +139,7 @@ export async function POST(request: Request) {
                 <div><span class="label">Name:</span> ${contact.name}</div>
                 <div><span class="label">Agency:</span> ${contact.agency}</div>
                 <div><span class="label">Email:</span> <a href="mailto:${contact.email}">${contact.email}</a></div>
+                ${contact.linkedinUrl ? `<div><span class="label">LinkedIn:</span> <a href="${contact.linkedinUrl}" style="color: #2e7d8f; text-decoration: none;" target="_blank">${contact.linkedinUrl}</a></div>` : ''}
               </div>
 
               <h2>Results Summary</h2>

@@ -20,8 +20,11 @@ import {
   Settings,
   Rocket,
   Trophy,
+  Download,
 } from "lucide-react";
 import Link from "next/link";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 import { auditSections, getTier, type AuditSection } from "@/lib/audit-data";
 import { cn } from "@/lib/utils";
 
@@ -308,6 +311,128 @@ function SectionScoreBar({
   );
 }
 
+/* ═══════════════════ PDF DOWNLOAD FUNCTION ═══════════════════ */
+async function generateAuditPDF(
+  contact: { name: string; agency: string; email: string; linkedinUrl: string },
+  answers: Record<string, number>,
+  totalScore: number,
+  sectionScores: Array<{ name: string; score: number; max: number }>
+) {
+  // Create a hidden div to render the content for PDF capture
+  const container = document.createElement("div");
+  container.style.position = "absolute";
+  container.style.left = "-9999px";
+  container.style.width = "800px";
+  container.style.padding = "40px";
+  container.style.backgroundColor = "#fff";
+  container.style.fontFamily = "Arial, sans-serif";
+  
+  // Create the HTML content for PDF
+  const tier = getTier(totalScore);
+  
+  container.innerHTML = `
+    <div style="margin-bottom: 40px; border-bottom: 2px solid #2e7d8f; padding-bottom: 20px;">
+      <h1 style="color: #0a1f27; margin: 0 0 10px 0; font-size: 32px;">Agency Operations Audit Results</h1>
+      <p style="color: #476b76; margin: 10px 0; font-size: 14px;">Completed on ${new Date().toLocaleDateString()}</p>
+    </div>
+
+    <div style="margin-bottom: 30px;">
+      <h2 style="color: #163d48; margin-bottom: 15px; font-size: 20px;">Contact Information</h2>
+      <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+        <tr style="border-bottom: 1px solid #e7eef2;">
+          <td style="padding: 10px 0; font-weight: bold; color: #163d48; width: 200px;">Name:</td>
+          <td style="padding: 10px 0; color: #476b76;">${contact.name}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e7eef2;">
+          <td style="padding: 10px 0; font-weight: bold; color: #163d48;">Agency:</td>
+          <td style="padding: 10px 0; color: #476b76;">${contact.agency}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e7eef2;">
+          <td style="padding: 10px 0; font-weight: bold; color: #163d48;">Email:</td>
+          <td style="padding: 10px 0; color: #476b76;">${contact.email}</td>
+        </tr>
+        ${contact.linkedinUrl ? `
+        <tr style="border-bottom: 1px solid #e7eef2;">
+          <td style="padding: 10px 0; font-weight: bold; color: #163d48;">LinkedIn:</td>
+          <td style="padding: 10px 0; color: #476b76;"><a href="${contact.linkedinUrl}" style="color: #2e7d8f; text-decoration: none;">${contact.linkedinUrl}</a></td>
+        </tr>
+        ` : ''}
+      </table>
+    </div>
+
+    <div style="margin-bottom: 30px; background: #f0f5f7; padding: 20px; border-radius: 8px; text-align: center;">
+      <h2 style="color: #163d48; margin: 0 0 10px 0; font-size: 24px;">Overall Score</h2>
+      <div style="font-size: 48px; font-weight: bold; color: #2e7d8f; margin-bottom: 10px;">${totalScore}/24</div>
+      <div style="font-size: 18px; font-weight: bold; color: #163d48; margin-bottom: 5px;">${tier.label}</div>
+      <p style="color: #476b76; margin: 10px 0; font-size: 13px; line-height: 1.6;">${tier.description}</p>
+    </div>
+
+    <div style="margin-bottom: 30px;">
+      <h2 style="color: #163d48; margin-bottom: 15px; font-size: 20px;">Section Breakdown</h2>
+      <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+        ${sectionScores.map(section => `
+        <tr style="border-bottom: 1px solid #e7eef2;">
+          <td style="padding: 12px 0; font-weight: bold; color: #163d48; width: 60%;">${section.name}</td>
+          <td style="padding: 12px 0; text-align: right; color: #2e7d8f; font-weight: bold;">${section.score}/${section.max}</td>
+        </tr>
+        `).join('')}
+      </table>
+    </div>
+
+    <div style="margin-bottom: 30px;">
+      <h2 style="color: #163d48; margin-bottom: 15px; font-size: 20px;">Recommendation</h2>
+      <p style="color: #476b76; line-height: 1.6; font-size: 14px; margin: 0;">${tier.recommendation}</p>
+    </div>
+
+    <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #2e7d8f; font-size: 12px; color: #9ca3af; text-align: center;">
+      <p style="margin: 5px 0;">Agency Operations Audit | Muhammad Usman</p>
+      <p style="margin: 5px 0;">www.muhammad-usman-ops.com</p>
+    </div>
+  `;
+
+  document.body.appendChild(container);
+
+  try {
+    // Convert HTML to canvas
+    const canvas = await html2canvas(container, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      backgroundColor: "#ffffff",
+    });
+
+    // Create PDF
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4",
+    });
+
+    const imgWidth = 210; // A4 width in mm
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    // Add image to PDF, splitting into multiple pages if needed
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+    heightLeft -= 297; // A4 height in mm
+
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= 297;
+    }
+
+    // Download PDF
+    pdf.save(`audit-results-${contact.name.replace(/\s+/g, "-")}.pdf`);
+  } finally {
+    document.body.removeChild(container);
+  }
+}
+
 /* ═══════════════════ MAIN PAGE COMPONENT ═══════════════════ */
 export default function AuditPage() {
   const [step, setStep] = useState(0);
@@ -315,6 +440,7 @@ export default function AuditPage() {
     name: "",
     agency: "",
     email: "",
+    linkedinUrl: "",
   });
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [direction, setDirection] = useState(1); // 1 = forward, -1 = back
@@ -409,6 +535,16 @@ export default function AuditPage() {
 
   const selectAnswer = (qId: string, value: number) => {
     setAnswers((prev) => ({ ...prev, [qId]: value }));
+  };
+
+  const handleDownloadPDF = async () => {
+    const sectionScores = auditSections.map(section => ({
+      name: section.title,
+      score: sectionScore(section),
+      max: section.questions.length * 2,
+    }));
+
+    await generateAuditPDF(contact, answers, totalScore, sectionScores);
   };
 
   /* ── page‑transition variants ── */
@@ -664,6 +800,14 @@ export default function AuditPage() {
                         key: "email" as const,
                         type: "email",
                       },
+                      {
+                        id: "linkedinUrl",
+                        label: "LinkedIn Profile (Optional)",
+                        placeholder: "https://linkedin.com/in/johndoe",
+                        value: contact.linkedinUrl,
+                        key: "linkedinUrl" as const,
+                        type: "url",
+                      },
                     ].map((field, i) => (
                       <motion.div
                         key={field.id}
@@ -676,7 +820,9 @@ export default function AuditPage() {
                           className="mb-2 block text-sm font-medium text-dark-medium"
                         >
                           {field.label}{" "}
-                          <span className="text-red-500">*</span>
+                          {field.key !== "linkedinUrl" && (
+                            <span className="text-red-500">*</span>
+                          )}
                         </label>
                         <input
                           id={field.id}
@@ -907,6 +1053,13 @@ export default function AuditPage() {
                         Book Free 30-Min Audit Call
                         <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </a>
+                      <button
+                        onClick={handleDownloadPDF}
+                        className="group inline-flex items-center gap-2 rounded-xl border border-accent bg-accent/10 px-6 py-3.5 text-sm font-semibold text-accent transition-all hover:bg-accent/20 hover:border-accent"
+                      >
+                        <Download className="h-5 w-5" />
+                        Download as PDF
+                      </button>
                       <Link
                         href="/"
                         className="inline-flex items-center gap-2 rounded-xl border border-secondary px-6 py-3.5 text-sm font-medium text-dark-medium transition-all hover:border-accent/30 hover:text-dark"
